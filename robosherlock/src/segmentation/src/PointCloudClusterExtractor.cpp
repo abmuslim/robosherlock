@@ -18,6 +18,7 @@
  */
 
 #include <vector>
+#include <string>
 
 //uima
 #include <uima/api.hpp>
@@ -373,17 +374,13 @@ private:
                                 std::vector<pcl::PointIndices> &cluster_indices,
                                 const pcl::PointIndices::Ptr &prism_inliers)
   {
-    //std::vector<bool> ignore_labels;
+    std::string distro_chk = getenv("ROS_DISTRO");
+    int distro_bool=distro_chk.compare("noetic");
+    
     pcl::PointCloud<pcl::Label>::Ptr input_labels(new pcl::PointCloud<pcl::Label>);
 
     pcl::Label label;
-    boost::shared_ptr<std::set<uint32_t>> exclude_labels = boost::make_shared<std::set<uint32_t>>();
-    exclude_labels->insert(1);
-    //ignore_labels.resize(2);
-    //ignore_labels[0] = true;
-    //ignore_labels[1] = false;
-
-
+    
     input_labels->height = cloud->height;
     input_labels->width = cloud->width;
 
@@ -410,7 +407,18 @@ private:
     ecc->setInputCloud(cloud);
     ecc->setLabels(input_labels);
     //TODO commented that out i think we have to fix the error
-    ecc->setExcludeLabels(exclude_labels);
+    #if distro_bool==0
+        boost::shared_ptr<std::set<uint32_t>> exclude_labels=boost::make_shared<std::set<uint32_t>>();
+        exclude_labels->insert(1);
+        ecc->setExcludeLabels(exclude_labels);
+    
+    #else 
+        std::vector<bool> ignore_labels;
+        ignore_labels.resize(2);
+        ignore_labels[0] = true;
+        ignore_labels[1] = false;
+        ecc->setExcludeLabels(ignore_labels);
+    #endif
     ecc->setDistanceThreshold(cluster_tolerance, true);
     ecc->setInputNormals(normals);
     std::vector<pcl::PointIndices> cluster_i;
