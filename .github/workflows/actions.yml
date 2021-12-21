@@ -34,7 +34,13 @@ jobs:
           path: ~/.ccache
           key: ${{ runner.os }}-ccache-${{ hashFiles('hashFile.txt') }}
           restore-keys: ${{ runner.os }}-ccache-
-          
+
+      - name: System tests BioDynaMo
+        shell: bash
+        working-directory: build
+        run: |
+         set -x
+
       - uses: ros-tooling/setup-ros@v0.2
         with:
           required-ros-distributions: noetic
