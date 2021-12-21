@@ -6,9 +6,9 @@ name: CI
 on:
   # Triggers the workflow on push or pull request events but only for the master branch
   push:
-    branches: [ master ]
+    branches: [ noetic ]
   pull_request:
-    branches: [ master ]
+    branches: [ noetic ]
 
   # Allows you to run this workflow manually from the Actions tab
   #workflow_dispatch:
@@ -37,11 +37,11 @@ jobs:
           
       - uses: ros-tooling/setup-ros@v0.2
         with:
-          required-ros-distributions: melodic
+          required-ros-distributions: noetic
       - uses: ros-tooling/action-ros-ci@v0.2
         with:
           package-name: my_package
-          target-ros1-distro: melodic
+          target-ros1-distro: noetic
       - name: Install Boost
         run: |
           sudo apt update
