@@ -96,8 +96,8 @@ jobs:
           #lcov -c -i -d ~/catkin_ws -o coverage_base.info
           #cd ~/catkin_ws
           roscore& 
-          catkin_make run_tests_robosherlock
-          catkin_test_results
+          rosrun robosherlock robosherlock-test
+          #catkin_test_results
       - name: after_script
         run: |
           cd ~/catkin_ws/src/robosherlock
