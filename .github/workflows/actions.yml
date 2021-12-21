@@ -89,12 +89,6 @@ jobs:
         run: |
           cd ~/catkin_ws
           source devel/setup.bash
-          #find -L /home/travis/catkin_ws/src/robosherlock/robosherlock  -name include -type d
-          #catkin_make "$( [ -f $CATKIN_OPTIONS ] && cat $CATKIN_OPTIONS )"
-          #source devel/setup.bash
-          #cd ~/catkin_ws/src/robosherlock
-          #lcov -c -i -d ~/catkin_ws -o coverage_base.info
-          #cd ~/catkin_ws
           roscore& 
           rosrun robosherlock robosherlock-test
           #catkin_test_results
