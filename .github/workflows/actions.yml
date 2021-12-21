@@ -89,6 +89,7 @@ jobs:
         run: |
           cd ~/catkin_ws
           source devel/setup.bash
+          pwd
           roscore& 
           rosrun robosherlock robosherlock-test
           #catkin_test_results
