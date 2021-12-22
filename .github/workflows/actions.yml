@@ -84,8 +84,6 @@ jobs:
           echo "export XERCES_HOME=/usr" >> ~/.bashrc
           echo "export LD_LIBRARY_PATH=/usr/local/lib:${LD_LIBRARY_PATH}" >> ~/.bashrc
           . ~/.bashrc    
-      - name: Print author name with an environment variable
-        run: echo $CI_SOURCE_PATH
         
       - name: script
         run: |
