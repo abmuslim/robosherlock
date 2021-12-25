@@ -70,9 +70,11 @@ jobs:
           cd ~/catkin_ws/src
           #catkin_init_workspace
           cd ../
+          pwd
           catkin_make
           source devel/setup.bash
           cd ~/catkin_ws/src
+          pwd
           ln -s $CI_SOURCE_PATH .
           
       - name: before_script
