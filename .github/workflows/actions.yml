@@ -72,6 +72,7 @@ jobs:
           #catkin_init_workspace
           cd ../
           pwd
+          ls
           catkin_make
           source devel/setup.bash
           cd ~/catkin_ws/src
