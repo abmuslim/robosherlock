@@ -58,7 +58,7 @@ jobs:
           sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
           wget http://packages.ros.org/ros.key -O - | sudo apt-key add -
           sudo apt-get update -qq
-          sudo apt-get install -y ros-noetic-ros-base libmongoclient-* cmake python3-catkin-pkg python3-rosdep python3-wstool python3-rosinstall python3-rosinstall-generator python3-setuptools libgtest-dev build-essential ros-noetic-catkin lcov swi-prolog --allow-downgrades
+          sudo apt-get install -y libxerces-c-dev ros-noetic-ros-base libmongoclient-* cmake python3-catkin-pkg python3-rosdep python3-wstool python3-rosinstall python3-rosinstall-generator python3-setuptools libgtest-dev build-essential ros-noetic-catkin lcov swi-prolog --allow-downgrades
           source /opt/ros/$ROS_DISTRO/setup.bash
           sudo rosdep init
           rosdep update
