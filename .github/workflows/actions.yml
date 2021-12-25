@@ -13,102 +13,54 @@ on:
   # Allows you to run this workflow manually from the Actions tab
   #workflow_dispatch:
 #name: Cache
-env: 
-  ROS_DISTRO: noetic
-  ROS_CI_DESKTOP: "`lsb_release -cs`"
-  ROS_PARALLEL_JOBS: '-j5 -l3'
-  CI_SOURCE_PATH: $(pwd)
-  CATKIN_OPTIONS: $CI_SOURCE_PATH/robosherlock/catkin.options
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
   build:
-    # The type of runner that the job will run on
     runs-on: ubuntu-20.04
-    #services:
-     #     mongo:
-      #      image: mongodb
-
-    # Steps represent a sequence of tasks that will be executed as part of the job
+    env:
+      ROS_CI_DESKTOP: "`lsb_release -cs`"  # e.g. [trusty|xenial|...]
+      CI_SOURCE_PATH: $(pwd)
+      ROSINSTALL_FILE: $CI_SOURCE_PATH/dependencies.rosinstall
+      CATKIN_OPTIONS: $CI_SOURCE_PATH/catkin.options
+      ROS_PARALLEL_JOBS: '-j8 -l6'
+      # Set the python path manually to include /usr/-/python3/dist-packages
+      # as this is where apt-get installs python packages.
+      PYTHONPATH: $PYTHONPATH:/usr/lib/python3/dist-packages:/usr/local/lib/python3/dist-packages
+      ROS_DISTRO: noetic
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v2
-
-      - name: Cache
-        id: cache
-        uses: actions/cache@v2
-        with:
-          path: ~/.ccache
-          key: ${{ runner.os }}-ccache-${{ hashFiles('hashFile.txt') }}
-          restore-keys: ${{ runner.os }}-ccache
- 
-      - name: Install Boost
+      - uses: actions/checkout@v1
+      - name: Install ROS
         run: |
-          pwd
-          sudo apt update
-          sudo apt install -y libicu-dev
-          
-      - name: Install Boost
-        run: |
-          sudo apt update
-          sudo apt install -y libboost-all-dev
-
-      - name: before_install
-        run: |   
-          sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
-          wget http://packages.ros.org/ros.key -O - | sudo apt-key add -
-          sudo apt-get update -qq
-          sudo apt-get install -y libxerces-c-dev ros-noetic-ros-base libmongoclient-* cmake python3-catkin-pkg python3-rosdep python3-wstool python3-rosinstall python3-rosinstall-generator python3-setuptools libgtest-dev build-essential ros-noetic-catkin lcov swi-prolog --allow-downgrades
-          source /opt/ros/$ROS_DISTRO/setup.bash
-          sudo rosdep init
-          rosdep update
-          echo "source /opt/ros/noetic/setup.bash" >> ~/.bashrc
-          echo "export PYTHON_EXECUTABLE=/usr/bin/python3" >> ~/.bashrc
-          echo "export PYTHONPATH=$PYTHONPATH:/usr/lib/python3/dist-packages" >> ~/.bashrc
-          source ~/.bashrc
-          mkdir -p ~/catkin_ws/src
-          cd ~/catkin_ws/src
-          cp  -R /home/runner/work/robosherlock /home/runner/catkin_ws/src
-          #catkin_init_workspace
-          cd ../
-          pwd
-          ls
-          cd src/robosherlock
-          ls
-          catkin_make
-          source devel/setup.bash
-          cd ~/catkin_ws/src
-          pwd
-          ls
-          ln -s $CI_SOURCE_PATH .
-          
-      - name: before_script
-        run: |
-          cd ~/catkin_ws
-          rosdep install -y --from-paths src --ignore-src --rosdistro $ROS_DISTRO
-          echo "export APR_HOME=/usr" >> ~/.bashrc
-          echo "export ICU_HOME=/usr" >> ~/.bashrc
-          echo "export XERCES_HOME=/usr" >> ~/.bashrc
-          echo "export LD_LIBRARY_PATH=/usr/local/lib:${LD_LIBRARY_PATH}" >> ~/.bashrc
-          . ~/.bashrc    
+            sudo sh -c "echo \"deb http://packages.ros.org/ros/ubuntu $ROS_CI_DESKTOP main\" > /etc/apt/sources.list.d/ros-latest.list"
+            sudo apt-key adv --keyserver 'hkp://keyserver.ubuntu.com:80' --recv-key C1CF6E31E6BADE8868B172B4F42ED6FBAB17C654
+            sudo apt-get update -qq
+            sudo apt-get install dpkg
+            sudo apt-get install -y python3-catkin-tools python3-catkin-pkg
+            sudo apt-get install -y python3-rosdep python3-wstool
+            sudo apt-get install -y libboost-dev
+            sudo apt-get install -y libyaml-cpp-dev
+            sudo apt-get install -y ros-cmake-modules
+            sudo apt-get install -y ros-$ROS_DISTRO-nodelet-core
+            sudo apt-get install -y ros-$ROS_DISTRO-roscpp
+            sudo apt-get install -y ros-$ROS_DISTRO-roslint
+            sudo apt-get install -y ros-$ROS_DISTRO-std-msgs
+            sudo apt-get install -y ros-$ROS_DISTRO-roslisp-repl
+            sudo apt-get install -y libassimp-dev
+            sudo apt-get install -y libbullet-dev 
+            source /opt/ros/$ROS_DISTRO/setup.bash
+            # Prepare rosdep to install dependencies.
+            sudo rosdep init
+            rosdep update --include-eol-distros  # Support EOL distros.
         
       - name: script
         run: |
+          source /opt/ros/$ROS_DISTRO/setup.bash
+          mkdir -p ~/catkin_ws/src
           cd ~/catkin_ws
+          catkin build
           source devel/setup.bash
-          roscore &
-          cd ~/catkin_ws
-          source devel/setup.bash
-          rosrun robosherlock robosherlock-test
-          #catkin_test_results
-      - name: after_script
-        run: |
-          cd ~/catkin_ws/src/robosherlock
-          lcov --directory ~/catkin_ws/ --capture --output-file coverage_test.info
-          lcov -a coverage_base.info -a coverage_test.info -o ~/catkin_ws/src/robosherlock/coverage_total.info
-          lcov --remove coverage_total.info '/usr/*' --output-file coverage_total.info 
-          lcov --extract coverage_total.info '*robosherlock*' --output-file coverage_total.info
-          lcov --list coverage_total.info
-          bash <(curl -s https://codecov.io/bash) -X gcov -f ~/catkin_ws/src/robosherlock/coverage_total.info || echo "Codecov did not collect coverage reports"
-
-          
+          # echo "::warning $CI_SOURCE_PATH"
+          # echo "::warning `ls -l`"
+          cd src
+          ln -s ~/work  # $CI_SOURCE_PATH
+          cd ..
+          catkin build
