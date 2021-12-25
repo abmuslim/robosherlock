@@ -75,6 +75,7 @@ jobs:
           source devel/setup.bash
           cd ~/catkin_ws/src
           pwd
+          ls
           ln -s $CI_SOURCE_PATH .
           
       - name: before_script
