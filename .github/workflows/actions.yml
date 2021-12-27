@@ -64,7 +64,7 @@ jobs:
           # echo "::warning $CI_SOURCE_PATH"
           # echo "::warning `ls -l`"
           cd src
-          ln -s # $CI_SOURCE_PATH
+          ln -s ~/work $CI_SOURCE_PATH
           cd ..
           pwd
           
