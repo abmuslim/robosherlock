@@ -18,7 +18,7 @@ find_package(catkin REQUIRED)
 
 add_definitions(-DRAPIDJSON_HAS_STDSTRING)
 catkin_package(
-   include/rapidjson/include
+   INCLUDE_DIRS include/rapidjson/include
 #  LIBRARIES rapidjson_ros
 #  CATKIN_DEPENDS other_catkin_pkg
 #  DEPENDS system_lib
