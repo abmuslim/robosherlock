@@ -67,4 +67,10 @@ jobs:
           ln -s ~/work  # $CI_SOURCE_PATH
           cd ..
           pwd
-          catkin build
+          cd catkin_ws/src
+          ls
+          cd robosherlock
+          ls
+          cd rapidjson_ros
+          ls
+          #catkin build
