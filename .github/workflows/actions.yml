@@ -88,4 +88,4 @@ jobs:
           echo "++++++++++++++++AV++++++++++++"
           cd rapidjson
           ls
-          #catkin_make
+          catkin_make
