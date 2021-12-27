@@ -80,6 +80,10 @@ jobs:
           cd rapidjson_ros
           ls
           echo "++++++++++++++++AV++++++++++++"
+          cd include
+          ls
+          cd
+          cd catkin_ws
           cd ..
           pwd
           catkin_make
