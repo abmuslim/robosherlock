@@ -67,4 +67,4 @@ jobs:
           ln -s ~/work #$CI_SOURCE_PATH
           cd ..
           pwd
-          catkin build
+          catkin_make
