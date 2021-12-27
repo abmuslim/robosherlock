@@ -75,4 +75,6 @@ jobs:
           ls
           cd work
           ls
+          cd robosherlock
+          ls
           #catkin build
