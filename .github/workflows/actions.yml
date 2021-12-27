@@ -86,7 +86,7 @@ jobs:
           cd include
           ls
           echo "++++++++++++++++AV++++++++++++"
-          cd rapidjason
+          cd rapidjson
           ls
           cd ..
           pwd
