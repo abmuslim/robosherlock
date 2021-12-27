@@ -59,7 +59,7 @@ jobs:
           source /opt/ros/$ROS_DISTRO/setup.bash
           mkdir -p ~/catkin_ws/src
           cd ~/catkin_ws
-          catkin_make
+          catkin build
           source devel/setup.bash
           # echo "::warning $CI_SOURCE_PATH"
           # echo "::warning `ls -l`"
@@ -67,4 +67,4 @@ jobs:
           ln -s ~/work  # $CI_SOURCE_PATH
           cd ..
           pwd
-          catkin_make
+          catkin build
