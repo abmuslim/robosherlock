@@ -67,7 +67,28 @@ jobs:
           echo "::warning $CI_SOURCE_PATH"
           echo "::warning `ls -l`"
           cd src
+          cd work/robosherlock/robosherlock/rapidjason/include/rapidjason/
           ln -s ~/work #$CI_SOURCE_PATH
+          echo "++++++++++++++++AV++++++++++++"
+          ls
+          echo "++++++++++++++++AV++++++++++++"
+          cd work
+          ls
+          echo "++++++++++++++++AV++++++++++++"
+          cd robosherlock
+          ls
+          echo "++++++++++++++++AV++++++++++++"
+          cd robosherlock
+          ls
+          echo "++++++++++++++++AV++++++++++++"
+          cd rapidjson_ros
+          ls
+          echo "++++++++++++++++AV++++++++++++"
+          cd include
+          ls
+          echo "++++++++++++++++AV++++++++++++"
+          cd rapidjason
+          ls
           cd ..
           pwd
           catkin_make
