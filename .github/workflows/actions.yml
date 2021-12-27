@@ -67,7 +67,6 @@ jobs:
           echo "::warning $CI_SOURCE_PATH"
           echo "::warning `ls -l`"
           cd src
-          cd work/robosherlock/robosherlock/rapidjason_ros/include/rapidjason
           ln -s ~/work #$CI_SOURCE_PATH
           echo "++++++++++++++++AV++++++++++++"
           ls
