@@ -27,7 +27,10 @@ jobs:
       PYTHONPATH: $PYTHONPATH:/usr/lib/python3/dist-packages:/usr/local/lib/python3/dist-packages
       ROS_DISTRO: noetic
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
+        with:
+        # **Relative path** under $GITHUB_WORKSPACE to place the repository
+            path: ' '
       - name: Install ROS
         run: |
             sudo sh -c "echo \"deb http://packages.ros.org/ros/ubuntu $ROS_CI_DESKTOP main\" > /etc/apt/sources.list.d/ros-latest.list"
