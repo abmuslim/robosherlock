@@ -71,9 +71,7 @@ jobs:
           #cd catkin_ws/src
           ls
           cd src
+          echo $in_src
           ls
-          cd robosherlock
-          ls
-          cd rapidjson_ros
-          ls
+          
           #catkin build
