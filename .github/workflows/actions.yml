@@ -30,7 +30,7 @@ jobs:
       - uses: actions/checkout@v2
         with:
         # **Relative path** under $GITHUB_WORKSPACE to place the repository
-            path: ' '
+            submodules: recursive
       - name: Install ROS
         run: |
             sudo sh -c "echo \"deb http://packages.ros.org/ros/ubuntu $ROS_CI_DESKTOP main\" > /etc/apt/sources.list.d/ros-latest.list"
