@@ -74,5 +74,5 @@ jobs:
           echo "in_src"
           ls
           cd work
-          cat CMakeLists.txt
+          ls
           #catkin build
