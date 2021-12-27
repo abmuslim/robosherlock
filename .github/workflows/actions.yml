@@ -68,24 +68,5 @@ jobs:
           echo "::warning `ls -l`"
           cd src
           ln -s ~/work #$CI_SOURCE_PATH
-          echo "++++++++++++++++AV++++++++++++"
-          ls
-          echo "++++++++++++++++AV++++++++++++"
-          cd work
-          ls
-          echo "++++++++++++++++AV++++++++++++"
-          cd robosherlock
-          ls
-          echo "++++++++++++++++AV++++++++++++"
-          cd robosherlock
-          ls
-          echo "++++++++++++++++AV++++++++++++"
-          cd rapidjson_ros
-          ls
-          echo "++++++++++++++++AV++++++++++++"
-          cd include
-          ls
-          echo "++++++++++++++++AV++++++++++++"
-          cd rapidjson
-          ls
+          cd ..
           catkin_make
