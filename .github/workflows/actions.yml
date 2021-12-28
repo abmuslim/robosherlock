@@ -67,14 +67,14 @@ jobs:
           cd ~/catkin_ws
           catkin_make
           source devel/setup.bash
-          echo "::warning $CI_SOURCE_PATH"
-          echo "::warning `ls -l`"
+          #echo "::warning $CI_SOURCE_PATH"
+          #echo "::warning `ls -l`"
           cd src
           ln -s ~/work #$CI_SOURCE_PATH
           cd ..
           roscore &
           catkin_make run_tests
-          rosrun robosherlock runAAE _ae:=u_test
+          #rosrun robosherlock runAAE _ae:=u_test
           #source devel/setup.bash
           #rosrun robosherlock robosherlock-test
            
