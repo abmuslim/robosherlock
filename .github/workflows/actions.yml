@@ -71,29 +71,9 @@ jobs:
           #echo "::warning `ls -l`"
           cd src
           ln -s ~/work #$CI_SOURCE_PATH
-          #cd ..
-          #roscore &
-          #catkin_make run_tests
-          cd work
-          ls
-          echo "++++++++++++++++AV++++++++++++"
-          cd robosherlock
-          ls
-          echo "++++++++++++++++AV++++++++++++"
-          cd robosherlock
-          ls
-          echo "++++++++++++++++AV++++++++++++"
-          cd robosherlock
-          ls
-          echo "++++++++++++++++AV++++++++++++"
-          cd src
-          ls
-          echo "++++++++++++++++AV++++++++++++"
-          cd io
-          ls
-          echo "++++++++++++++++AV++++++++++++"
-          cd src
-          ls
+          cd ..
+          roscore &
+          catkin_make run_tests
           #rosrun robosherlock runAAE _ae:=u_test
           #source devel/setup.bash
           #rosrun robosherlock robosherlock-test
