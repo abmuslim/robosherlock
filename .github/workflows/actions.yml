@@ -74,6 +74,7 @@ jobs:
           cd ..
           roscore &
           catkin_make run_tests
+          rosrun robosherlock runAAE _ae:=u_test
           #source devel/setup.bash
           #rosrun robosherlock robosherlock-test
            
