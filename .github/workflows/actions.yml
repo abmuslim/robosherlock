@@ -82,6 +82,9 @@ jobs:
           echo "++++++++++++++++AV++++++++++++"
           cd robosherlock
           ls
+          echo "++++++++++++++++AV++++++++++++"
+          cd robosherlock
+          ls
           #rosrun robosherlock runAAE _ae:=u_test
           #source devel/setup.bash
           #rosrun robosherlock robosherlock-test
