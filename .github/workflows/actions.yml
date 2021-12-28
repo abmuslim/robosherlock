@@ -71,13 +71,16 @@ jobs:
           #echo "::warning `ls -l`"
           cd src
           ln -s ~/work #$CI_SOURCE_PATH
-          cd ..
+          #cd ..
           #roscore &
           #catkin_make run_tests
           cd work
+          ls
+          echo "++++++++++++++++AV++++++++++++"
           cd robosherlock
+          ls
+          echo "++++++++++++++++AV++++++++++++"
           cd robosherlock
-          echo "_________________________"
           ls
           #rosrun robosherlock runAAE _ae:=u_test
           #source devel/setup.bash
