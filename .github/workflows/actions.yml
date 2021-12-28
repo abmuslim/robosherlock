@@ -74,7 +74,9 @@ jobs:
           cd ..
           #roscore &
           #catkin_make run_tests
-          cd work/robosherlock/robosherlock
+          cd work
+          cd robosherlock
+          cd robosherlock
           echo "_________________________"
           ls
           #rosrun robosherlock runAAE _ae:=u_test
