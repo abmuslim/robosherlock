@@ -73,6 +73,6 @@ jobs:
           ln -s ~/work #$CI_SOURCE_PATH
           cd ..
           roscore &
-          catkin_make run_tests
+          catkin_make
 
            
