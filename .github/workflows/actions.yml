@@ -69,7 +69,7 @@ jobs:
           #echo "::warning `ls -l`"
           cd src
           ln -s ~/work #$CI_SOURCE_PATH
-          cd ..
+          //cd ..
           roscore &
           catkin_make
 
